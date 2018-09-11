@@ -1,10 +1,10 @@
 class Table
-  attr_reader :length
+  attr_reader :range
   def initialize(length)
-    @length = length
+    @range = 0...length
   end
 
   def valid_position?(x, y)
-    x < length && y < length && x >= 0 && y >= 0
+    range.include?(x) && range.include?(y)
   end
 end
