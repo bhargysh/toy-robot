@@ -7,4 +7,8 @@ class Place < Action
     @y = y
     @f = f
   end
+
+  def execute(table, robot)
+    #check if table is valid
+  end
 end
