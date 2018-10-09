@@ -8,6 +8,7 @@ class Game
   end
 
   def command(action)
-    action.execute(@table, @robot) unless action.nil?
+    @robot = action.execute(@table, @robot) unless action.nil?
+    nil
   end
 end
