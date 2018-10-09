@@ -16,4 +16,13 @@ RSpec.describe(Place) do
       expect(subject.execute(table, robot)).to eq(Robot.new(x, y, f))
     end
   end
+
+  context 'when robot position is invalid' do
+    let(:old_robot) { Robot.new(0, 1, 'SOUTH') }
+    let(:x) { -1 }
+    let(:y) { -1 }
+    it 'returns latest valid robot' do
+      expect(subject.execute(table, old_robot)).to eq(old_robot)
+    end
+  end
 end

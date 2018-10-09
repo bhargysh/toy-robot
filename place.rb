@@ -9,6 +9,8 @@ class Place < Action
   end
 
   def execute(table, robot)
-    #check if table is valid
+    return robot unless table.valid_position?(x, y)
+
+    Robot.new(x, y, f)
   end
 end
