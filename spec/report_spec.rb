@@ -9,6 +9,10 @@ RSpec.describe(Report) do
   let(:table) { Table.new(5) }
   context 'when robot does not exist' do
     let(:robot) { nil }
+
+    before do
+      expect(Kernel).not_to receive(:puts)
+    end
     it 'returns nil and does not report' do
       expect(subject.execute(table, robot)).to eq(nil)
     end
