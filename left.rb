@@ -2,7 +2,7 @@ require './action'
 
 class Left < Action
 
-  def execute(table, robot)
+  def execute(table, robot, output)
     return nil if robot.nil?
 
     Robot.new(robot.x, robot.y, change_f(robot))

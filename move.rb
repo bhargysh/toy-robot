@@ -1,7 +1,7 @@
 require './action'
 require './table'
 class Move < Action
-  def execute(table, robot)
+  def execute(table, robot, output)
     return nil if robot.nil?
 
     updated_robot = robot.move

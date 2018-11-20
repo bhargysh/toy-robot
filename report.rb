@@ -1,9 +1,10 @@
 require './action'
 class Report < Action
-  def execute(table, robot)
+  def execute(table, robot, output)
     return nil if robot.nil?
 
-    puts "#{robot.x},#{robot.y},#{robot.f}"
+    output.write("#{robot.x},#{robot.y},#{robot.f}")
     robot
+    ## refactor so puts is not in the report class
   end
 end

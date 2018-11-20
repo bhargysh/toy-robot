@@ -8,7 +8,7 @@ class Place < Action
     @f = f
   end
 
-  def execute(table, robot)
+  def execute(table, robot, output)
     return robot unless table.valid_position?(x, y)
 
     Robot.new(x, y, f)

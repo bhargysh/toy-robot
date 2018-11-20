@@ -10,10 +10,14 @@ RSpec.describe(Place) do
   let(:f) { 'EAST' }
   let(:table) { Table.new(5) }
   let(:robot) { nil }
+  let(:output) { double }
+  before do
+    expect(output).not_to receive(:write)
+  end
 
   context 'when place action is given' do
     it 'moves the robot' do
-      expect(subject.execute(table, robot)).to eq(Robot.new(x, y, f))
+      expect(subject.execute(table, robot, output)).to eq(Robot.new(x, y, f))
     end
   end
 
@@ -22,7 +26,7 @@ RSpec.describe(Place) do
     let(:x) { -1 }
     let(:y) { -1 }
     it 'returns latest valid robot' do
-      expect(subject.execute(table, old_robot)).to eq(old_robot)
+      expect(subject.execute(table, old_robot, output)).to eq(old_robot)
     end
   end
 end
