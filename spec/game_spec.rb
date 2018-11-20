@@ -3,15 +3,16 @@ require './action'
 
 RSpec.describe(Game) do
   subject do
-    described_class.new(table)
+    described_class.new(table, output)
   end
   let(:table) { Table.new(4) }
+  let(:output) { double }
 
   context 'when a valid command is given' do
     let(:action) { double(Action) }
     let(:robot) { nil }
     before do
-      expect(action).to receive(:execute).with(table, robot).and_return(robot)
+      expect(action).to receive(:execute).with(table, robot, output).and_return(robot)
     end
     it 'executes the action and returns nothing' do
       expect(subject.command(action)).to be_nil
@@ -32,8 +33,8 @@ RSpec.describe(Game) do
     let(:updated_robot) { Robot.new(3, 0, 'WEST') }
 
     before do
-      expect(action).to receive(:execute).with(table, robot).and_return(updated_robot)
-      expect(action_two).to receive(:execute).with(table, updated_robot).and_return(Robot.new(3, 0, 'SOUTH'))
+      expect(action).to receive(:execute).with(table, robot, output).and_return(updated_robot)
+      expect(action_two).to receive(:execute).with(table, updated_robot, output).and_return(Robot.new(3, 0, 'SOUTH'))
     end
 
     it 'provides updated robot to next action' do
