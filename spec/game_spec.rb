@@ -1,12 +1,15 @@
 require './game'
 require './action'
+require './table'
+require './robot'
 
 RSpec.describe(Game) do
   subject do
-    described_class.new(table, output)
+    described_class.new(table, output, parser)
   end
   let(:table) { Table.new(4) }
   let(:output) { double }
+  let(:parser) { double }
 
   context 'when a valid command is given' do
     let(:action) { double(Action) }
@@ -40,6 +43,18 @@ RSpec.describe(Game) do
     it 'provides updated robot to next action' do
       subject.command(action)
       expect(subject.command(action_two)).to be_nil
+    end
+  end
+
+  context 'when game is played' do
+    let(:command) { 'dhleflbvd' }
+    before do
+      allow($stdin).to receive(:gets).and_return(command).once.ordered
+      allow($stdin).to receive(:gets).and_return(nil).ordered
+      expect(parser).to receive(:retrieve_input).with(command)
+    end
+    it 'parses command from stdin and executes command' do
+      expect(subject.play).to be_nil
     end
   end
 end
