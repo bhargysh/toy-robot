@@ -1,4 +1,5 @@
 require './action'
+require './robot'
 
 class Place < Action
   attr_reader :x, :y, :f

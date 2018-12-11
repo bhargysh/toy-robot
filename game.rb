@@ -1,8 +1,9 @@
 class Game
 
-  def initialize(table, output, parser)
+  def initialize(table, input, output, parser)
     @table = table
     @robot = nil
+    @input = input
     @output = output
     @parser = parser
   end
@@ -13,8 +14,8 @@ class Game
   end
 
   def play
-    while input = $stdin.gets
-      action = @parser.retrieve_input(input.chomp)
+    while text = @input.read_line
+      action = @parser.retrieve_input(text)
       command(action)
     end
   end

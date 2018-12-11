@@ -2,12 +2,14 @@ require './game'
 require './action'
 require './table'
 require './robot'
+require './input'
 
 RSpec.describe(Game) do
   subject do
-    described_class.new(table, output, parser)
+    described_class.new(table, input, output, parser)
   end
   let(:table) { Table.new(4) }
+  let(:input) { double }
   let(:output) { double }
   let(:parser) { double }
 
@@ -49,8 +51,7 @@ RSpec.describe(Game) do
   context 'when game is played' do
     let(:command) { 'dhleflbvd' }
     before do
-      allow($stdin).to receive(:gets).and_return(command).once.ordered
-      allow($stdin).to receive(:gets).and_return(nil).ordered
+      allow(input).to receive(:read_line).and_return(command, nil)
       expect(parser).to receive(:retrieve_input).with(command)
     end
     it 'parses command from stdin and executes command' do

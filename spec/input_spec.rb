@@ -1,69 +1,29 @@
-require './input'
-require './action'
-require './place'
-require './move'
-require './left'
-require './right'
-require './report'
+require_relative '../input'
 
-RSpec.describe(UserInput) do
+
+RSpec.describe(Input) do
   subject do
-    described_class.retrieve_input(command)
+    described_class.new(StringIO.new(input))
   end
 
-  context 'when a valid command is passed in' do
-    context 'when command is place' do
-      let(:command) { "PLACE #{x},#{y},#{f}" }
-      let(:x) { 2 }
-      let(:y) { 3 }
-      let(:f) { "NORTH" }
-      it 'should return a place object' do
-        expect(subject).to be_a Place
-      end
-      it 'should return correct x position' do
-        expect(subject.x).to eq(x)
-      end
-      it 'should return correct y position' do
-        expect(subject.y).to eq(y)
-      end
-      it 'should return correct direction' do
-        expect(subject.f).to eq(f)
-      end
-    end
-
-    context 'when command is move' do
-      let(:command) { "MOVE" }
-      it 'should return a move object' do
-        expect(subject).to be_a Move
-      end
-    end
-
-    context 'when command is move' do
-      let(:command) { "LEFT" }
-      it 'should return a left object' do
-        expect(subject).to be_a Left
-      end
-    end
-
-    context 'when command is move' do
-      let(:command) { "RIGHT" }
-      it 'should return a move object' do
-        expect(subject).to be_a Right
-      end
-    end
-
-    context 'when command is move' do
-      let(:command) { "REPORT" }
-      it 'should return a move object' do
-        expect(subject).to be_a Report
-      end
+  context 'when input is not given' do
+    let(:input) { '' }
+    it 'returns nil' do
+      expect(subject.read_line).to be(nil)
     end
   end
 
-  context 'when invalid command is passed in' do
-    let(:command) { "BACK" }
-    it 'should not return anything' do
-      expect(subject).to eq(nil)
+  context 'when input contains text' do
+    let(:input) { 'blahblah' }
+    it 'returns the text' do
+      expect(subject.read_line).to eq('blahblah')
+    end
+  end
+
+  context 'when input contains multiple lines' do
+    let(:input) { "hi\nblah\nbye\n"}
+    it 'returns each line without trailing new line' do
+      expect((1..4).map { subject.read_line }).to eq(['hi', 'blah', 'bye', nil])
     end
   end
 
